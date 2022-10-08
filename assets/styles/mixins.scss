@@ -1,0 +1,25 @@
+@import '../../node_modules/vuetify/src/styles/settings/variables';
+
+// Convert pixles to rem
+@function rem($pixels, $context: 16) {
+  @return #{$pixels/$context}rem;
+}
+
+@mixin glossyStyle($opacity: 35%) {
+  background: rgba(16 18 27 / #{$opacity});
+  backdrop-filter: blur(6px);
+}
+
+// SM and up
+@mixin smAndUp {
+  @media #{map-get($display-breakpoints, 'sm-and-up')} {
+    @content;
+  }
+}
+
+// MD and up
+@mixin mdAndUp {
+  @media #{map-get($display-breakpoints, 'md-and-up')} {
+    @content;
+  }
+}

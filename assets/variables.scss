@@ -2,3 +2,48 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
+$zplus-primary: red;
+
+:root {
+  --colorWhite: #fff;
+  --colorGreyUltralight: #f2f3f4;
+  --colorGreyLight: #e6e6e6;
+  --colorGreyMid: #767676;
+  --colorGreyDark: #555;
+  --colorBlack: #000;
+  --colorPrimaryUltralight: #ebf4e5;
+  --colorPrimaryLight: #66b100;
+  --colorPrimaryMid: #3c9700;
+  --colorPrimaryDark: #286400;
+  --colorPrimaryGradient: linear-gradient(to right,var(--colorPrimaryMid),var(--colorPrimaryLight));
+  --colorSecondaryUltralight: #f4b66f;
+  --colorSecondaryLight: #f80;
+  --colorSecondaryMid: #ff6200;
+  --colorSecondaryDark: #cc4e00;
+  --colorSecondaryGradient: linear-gradient(to right,var(--colorSecondaryMid),var(--colorSecondaryLight));
+  --colorInfoUltralight: #ecf5fa;
+  --colorInfoMid: #459fd0;
+  --colorSuccessUltralight: #ebf4e5;
+  --colorSuccessMid: #3c9700;
+  --colorWarningUltralight: #fde8e9;
+  --colorWarningMid: #ed1c24;
+  --colorWarningDark: #bd161c;
+  --colorYellowMid: #ffc600;
+  --colorPawIcon: #fcd648;
+  --colorOrangeMid: var(--colorSecondaryLight);
+  --colorDisabled: #7a7a7a;
+  --colorDisabledBackground: linear-gradient(to right,var(--colorGreyLight),var(--colorGreyUltralight));
+  --colorShadow: rgba(0,0,0,0.1);
+
+
+  --spacingSmall: 5px;
+  --spacingMedium: 15px;
+  --spacingLarge: 20px;
+  --spacingExtraLarge: 30px;
+  --fontSizeV2: 12px;
+  --fontSizeV3: 14px;
+  --fontSizeV4: 16px;
+  --fontSizeV5: 18px;
+  --borderRadius: 5px;
+  --boxShadow: 0 6px 15px 0 rgba(0,0,0,0.1);
+}

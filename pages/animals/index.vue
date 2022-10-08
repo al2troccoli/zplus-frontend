@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import ZplusPage from '../components/ZplusPage/ZplusPage'
-import ZplusAnimalsTable from '../components/ZplusAnimalsCrud/ZplusAnimalsTable'
+import ZplusPage from '~/components/ZplusPage/ZplusPage'
+import ZplusAnimalsTable from '~/components/ZplusAnimalsCrud/ZplusAnimalsTable'
 export default {
   name: 'IndexPage',
   components: { ZplusAnimalsTable, ZplusPage },

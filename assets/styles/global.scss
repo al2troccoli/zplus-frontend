@@ -1,0 +1,25 @@
+.zplus-test {
+  @include glossyStyle(35%);
+  @include mdAndUp {
+    margin-bottom: 0;
+  }
+}
+
+.zplus-table {
+  $self: &;
+  &.v-data-table {
+    background-color: transparent;
+    box-shadow: none;
+    outline: 1px solid var(--colorSecondaryUltralight);
+  }
+
+  & .v-toolbar.v-sheet {
+    border-bottom: 1px solid var(--colorSecondaryUltralight);
+  }
+
+  &--more-opaque {
+    .v-toolbar.v-sheet {
+      background: rgba(16 18 27 / 50%);
+    }
+  }
+}

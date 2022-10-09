@@ -28,14 +28,13 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/mixins.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/composition-api/module',
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/style-resources',
@@ -73,10 +72,24 @@ export default {
     base: '/',
   },
 
+  env: {
+    BASE_URL: 'http://localhost:3001/'
+  },
+
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL:
+        process.env.NODE_ENV === 'development'
+          ? 'http://localhost:3001/'
+          : process.env.BASE_URL,
+    },
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.BASE_URL,
+    proxy: true
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -36,7 +36,7 @@
           </template>
           <!-- Visited Date -->
           <template v-slot:[`item.lastVisit`]="{ item }">
-            {{ getVisitedDateByLocale(item.lastVisit) }}
+            {{ formatDateWithLocale(item.lastVisit) }}
           </template>
           <!-- Actions -->
           <template v-slot:[`item.actions`]="{ item }">
@@ -44,7 +44,7 @@
             <v-icon
               :title="$t('animalsList.editAnimal')"
               class="ml-2"
-              @click="navigateToAnimalDetailsPage(item.id)">
+              @click="navigateToAnimalDetailsPage(item._id)">
               mdi-pencil-outline
             </v-icon>
             <!-- Delete button -->
@@ -142,12 +142,29 @@
 </template>
 
 <script>
+/**
+ * @description Zplus Animals Table
+ * Displays the retrieved animals information in a data table. Animals can be edited or deleted.
+ * @author Aldo Troccoli <al2troccoli@gmail.com>
+ * @module ZplusAnimalsTable
+ * @category Components
+ *
+ * @vue-data {array} headers - Headers for render the data table
+ * @vue-data {boolean} tableIsLoading - True while retrieving the animals info. The table shows a loading animation.
+ * @vue-data {boolean} deleteDialogVisible - True if the delete animal dialog is shown.
+ * @vue-data {object} clickedAnimal - Stores the information of a clicked animal.
+ * @vue-data {string} deletingAnimal - True while deleting the selected animal. A loading animation is shown.
+ */
+
 import { mapGetters } from 'vuex'
 import { animalsMixins } from './animals-mixins'
 import LoadingOverlay from '~/components/LoadingOverlay/LoadingOverlay'
+
 export default {
   name: 'ZplusAnimalsTable',
+
   components: { LoadingOverlay },
+
   mixins: [animalsMixins],
 
   data() {
@@ -160,16 +177,6 @@ export default {
         { text: this.$t('commons.lastVisit'), value: 'lastVisit', sortable: true },
         { text: this.$t('commons.actions'), value: 'actions', sortable: false },
       ],
-      newAnimal: {
-        id: null,
-        name: '',
-        type: '',
-        breed: '',
-        gender: '',
-        vaccinated: false,
-        lastVisit: null,
-        lastUpdate: null,
-      },
       tableIsLoading: false,
       deleteDialogVisible: false,
       clickedAnimal: {},
@@ -179,51 +186,6 @@ export default {
 
   computed: {
     ...mapGetters(['getAnimalsList']),
-
-    // getStudentsDataFormatted() {
-    //   return [
-    //     {
-    //       id: 1,
-    //       name: 'Polly',
-    //       type: 'Parrot',
-    //       breed: '',
-    //       gender: 'Female',
-    //       vaccinated: false,
-    //       lastVisit: null,
-    //       lastUpdate: null,
-    //     },
-    //     {
-    //       id: 2,
-    //       name: 'Spot',
-    //       type: 'Cat',
-    //       breed: '',
-    //       gender: 'Male',
-    //       vaccinated: true,
-    //       lastVisit: null,
-    //       lastUpdate: null,
-    //     },
-    //     {
-    //       id: 3,
-    //       name: 'Spot',
-    //       type: 'Cat',
-    //       breed: '',
-    //       gender: 'Male',
-    //       vaccinated: true,
-    //       lastVisit: null,
-    //       lastUpdate: null,
-    //     },
-    //     {
-    //       id: 4,
-    //       name: 'Spot',
-    //       type: 'Cat',
-    //       breed: '',
-    //       gender: 'Male',
-    //       vaccinated: true,
-    //       lastVisit: null,
-    //       lastUpdate: null,
-    //     }
-    //   ]
-    // }
   },
 
   async created() {
@@ -241,7 +203,7 @@ export default {
         this.tableIsLoading = true
         await this.$store.dispatch('retrieveAnimals', {page: 0, itemsPerPage: 2})
       } catch (error) {
-        console.error(error)
+        await this.$store.dispatch('showErrorAlert', 'error.wrong')
       } finally {
         this.tableIsLoading = false
       }
@@ -257,30 +219,6 @@ export default {
     },
 
     /**
-     * @description Navigates to Animal Creation view
-     */
-    navigateToAnimalCreationView() {
-      this.$router.push(this.localeLocation({ path: '/animals/new-animal'}))
-    },
-
-    /**
-     * @description Navigates to Animal Detail view
-     * @param {string} animalId - The animal identification will be sent to the url as a parameter
-     */
-    navigateToAnimalDetailsPage(animalId) {
-      this.$router.push(this.localeLocation({ path: `/animals/${animalId}`}))
-    },
-
-    /**
-     * @description Formats a given date with the app selected locale.
-     * @param {string} visitedDate - Visited animal property
-     * @return {string}
-     */
-    getVisitedDateByLocale(visitedDate) {
-      return this.formatDateByLocale(visitedDate, this.$i18n.locale)
-    },
-
-    /**
      * @description Delete animal button handler. Opens the delete dialog
      * @param {object} animalInfo - Animal entity info
      */
@@ -289,14 +227,19 @@ export default {
       this.clickedAnimal = animalInfo
     },
 
+    /**
+     * @async
+     * @description Deletes an animals via API.
+     */
     async deleteAnimalHandler() {
       try {
         this.deleteDialogVisible = false
         this.deletingAnimal = true
-        await this.$store.dispatch('deleteAnimal', this.clickedAnimal.id)
+        await this.$store.dispatch('deleteAnimal', this.clickedAnimal._id)
         await this.retrieveAnimalsList()
+        await this.$store.dispatch('showSuccessAlert', 'animalsList.deletedSuccessfully')
       } catch (error) {
-        console.error(error)
+        await this.$store.dispatch('showErrorAlert', 'error.wrong')
       } finally {
         this.deletingAnimal = false
       }

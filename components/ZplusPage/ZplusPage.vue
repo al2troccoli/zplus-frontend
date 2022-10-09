@@ -16,6 +16,17 @@
 </template>
 
 <script>
+/**
+ * @description Zplus Page
+ * Component used for the common layout of every app page.
+ * @author Aldo Troccoli <al2troccoli@gmail.com>
+ * @module ZplusPage
+ * @category Components
+ *
+ * @vue-prop {string} pageName - Allows to set an h1 title page
+ * @vue-prop {boolean} small - Set to true the page is set with 600 px of max-width
+ * @vue-computed {object} setSmallClass - Set the zplus-page--small css class to the main container
+ */
 export default {
   name: 'ZplusPage',
 

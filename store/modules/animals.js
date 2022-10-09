@@ -1,45 +1,107 @@
+/**
+ * @name Animals State
+ * @type {object}
+ * @property {array} [animalsList=[]] - List of created animals
+ */
 const state = {
   animalsList: [],
-  animalsListPage: 0,
-  selectedAnimalId: null
 }
 
+/**
+ * @name Animals Getters
+ * @getter {array} getAnimalsList=animalsList - Returns the list of retrieved animals
+ * @getter {object} getAnimalInfoById=animalsList - Find an animal inside animalList state,  with the id passed as parameter
+ */
 const getters = {
   getAnimalsList(state) {
     return state.animalsList
   },
-  getAnimalsListPage(state) {
-    return state.animalsListPage
-  },
-  getSelectedAnimalId(state) {
-    return state.selectedAnimalId
-  },
+  getAnimalInfoById: (state) => (animalId) => {
+    return state.animalsList.find(animal => animal._id === animalId)
+  }
 }
 
 
 const actions = {
-  async retrieveAnimals({ state, commit, getters }, { page = 0, itemsPerPage = 10 }) {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    const data = [{id:1,name:"Polly",type:"bird",breed:"cotorra",gender:"female",vaccinated:!1,lastVisit:"2021-01-28T04:03:02.216Z",lastUpdate:"2021-01-28T04:03:02.216Z"},{id:2,name:"Spot",type:"cat",breed:"abisinio",gender:"male",vaccinated:!0,lastVisit:null,lastUpdate:"2021-01-28T04:03:02.216Z"},{id:3,name:"Colombo",type:"dog",breed:"galgo",gender:"male",vaccinated:!0,lastVisit:"2021-01-28T04:03:02.216Z",lastUpdate:"2021-01-28T04:03:02.216Z"},{id:4,name:"Dorothy",type:"fish",breed:"goldfish",gender:"female",vaccinated:!1,lastVisit:null,lastUpdate:"2021-01-28T04:03:02.216Z"},{id:5,name:"Raymond",type:"rodent",breed:"hamster",gender:"male",vaccinated:!0,lastVisit:"2021-01-28T04:03:02.216Z",lastUpdate:"2021-01-28T04:03:02.216Z"}]
-    commit('SET_ANIMALS_LIST', data)
+  /**
+   * @async
+   * @description Retrieve all the animals available in the system.
+   * @name retrieveAnimals
+   * @action retrieveAnimals=animalsList
+   * @returns {array} - The animals list
+   */
+  async retrieveAnimals({ state, commit }) {
+    const animalsList = await this.$axios.get('/animals/')
+    commit('SET_ANIMALS_LIST', animalsList.data)
     return state.animalsList
   },
 
+  /**
+   * @async
+   * @description Submits a new animal to the API.
+   * @name submitNewAnimal
+   * @param {object} animalItem - The new animal object
+   * @return {object} - The new animal submitted with its assigned id.
+   */
+  async submitNewAnimal({ _ }, animalItem) {
+    return await this.$axios.post('/animals/new-animal', animalItem)
+  },
+
+  /**
+   * @async
+   * @description Modifies an existing animal via API
+   * @name editAnimal
+   * @action editAnimal=animalsList
+   * @param {object} animalItem - The modified animal object
+   * @return {object} - The modified animal.
+   */
+  async editAnimal({ commit }, animalItem) {
+    const editedAnimal = await this.$axios.put('/animals/update-animal', animalItem)
+    commit('UPDATE_EDITED_ANIMAL', editedAnimal)
+    return editedAnimal
+  },
+
+  /**
+   * @async
+   * @description Deletes an existing animal via API
+   * @name deleteAnimal
+   * @action deleteAnimal=animalsList
+   * @param {string} animalId - The animal id
+   * @return {void}
+   */
   async deleteAnimal({ state, commit, getters }, animalId) {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    const data = [{id:1,name:"Polly",type:"bird",breed:"cotorra",gender:"female",vaccinated:!1,lastVisit:"2021-01-28T04:03:02.216Z",lastUpdate:"2021-01-28T04:03:02.216Z"},{id:2,name:"Spot",type:"cat",breed:"abisinio",gender:"male",vaccinated:!0,lastVisit:null,lastUpdate:"2021-01-28T04:03:02.216Z"},{id:3,name:"Colombo",type:"dog",breed:"galgo",gender:"male",vaccinated:!0,lastVisit:"2021-01-28T04:03:02.216Z",lastUpdate:"2021-01-28T04:03:02.216Z"},{id:4,name:"Dorothy",type:"fish",breed:"goldfish",gender:"female",vaccinated:!1,lastVisit:null,lastUpdate:"2021-01-28T04:03:02.216Z"},{id:5,name:"Raymond",type:"rodent",breed:"hamster",gender:"male",vaccinated:!0,lastVisit:"2021-01-28T04:03:02.216Z",lastUpdate:"2021-01-28T04:03:02.216Z"}]
-    commit('SET_ANIMALS_LIST', data)
-    return state.animalsList
+    return await this.$axios.delete(`/animals/${animalId}`)
+  },
+
+
+  /**
+   * @async
+   * @description Retrieve the info of the animal selected
+   * @name retrieveAnimalById
+   * @param {string} animalId - The animal id
+   * @returns {object} - Info of the animal retrieved
+   */
+  async retrieveAnimalById({ _ }, animalId) {
+    return await this.$axios.get(`/animals/${animalId}`)
   }
 }
-
+/**
+ * @name Animals Mutators
+ * @type {object}
+ * @mutator SET_ANIMALS_LIST=animalsList
+ * @mutator UPDATE_EDITED_ANIMAL=animalsList
+ */
 const mutations = {
   SET_ANIMALS_LIST(state, list) {
     state.animalsList = list
   },
-  SET_SELECTED_ANIMAL_ID(state, id) {
-    state.selectedAnimalId = id
-  },
+  UPDATE_EDITED_ANIMAL(state, editedAnimal) {
+    let findAnimal = state.animalsList.find(animal => animal._id === editedAnimal._id)
+    if (findAnimal) {
+      findAnimal = { ...editedAnimal }
+    }
+    state.animalsList = [...state.animalsList]
+  }
 }
 
 export default {

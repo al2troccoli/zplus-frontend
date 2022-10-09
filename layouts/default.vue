@@ -9,6 +9,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <zplus-alert/>
         <Nuxt />
       </v-container>
     </v-main>
@@ -19,11 +20,12 @@
 </template>
 
 <script>
+import ZplusAlert from '../components/ZplusAlert/ZplusAlert'
 import ZplusParticles from '../components/Particles/Particles'
 import ZplusLanguage from '~/components/Language/ZplusLanguage'
 export default {
   name: 'DefaultLayout',
-  components: { ZplusParticles, ZplusLanguage },
+  components: { ZplusAlert, ZplusParticles, ZplusLanguage },
   data() {
     return {
       fixed: false,
@@ -62,10 +64,10 @@ export default {
     width: auto;
   }
 
-  ::v-deep .v-toolbar__title {
+  :deep(.v-toolbar__title) {
     font-size: var(--fontSizeV3);
     margin-left: var(--spacingSmall);
-    color: var(--colorDisabled);
+    color: var(--colorGreyDark);
   }
 
   &__footer {

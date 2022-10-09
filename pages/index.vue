@@ -1,16 +1,17 @@
 <template>
-  <zplus-page :page-name="$t('animalsList.pageName')">
+  <zplus-page :small="true">
     <template #sheetContent>
-      <zplus-animals-table></zplus-animals-table>
+      <zplus-intro></zplus-intro>
     </template>
   </zplus-page>
 </template>
 
 <script>
-import ZplusPage from '../components/ZplusPage/ZplusPage'
-import ZplusAnimalsTable from '../components/ZplusAnimalsCrud/ZplusAnimalsTable'
+import ZplusPage from '~/components/ZplusPage/ZplusPage'
+import ZplusIntro from '~/components/ZplusIntro/ZplusIntro'
+
 export default {
   name: 'IndexPage',
-  components: { ZplusAnimalsTable, ZplusPage },
+  components: { ZplusIntro, ZplusPage },
 }
 </script>

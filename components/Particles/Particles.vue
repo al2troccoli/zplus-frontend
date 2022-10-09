@@ -8,6 +8,13 @@
 </template>
 
 <script>
+/**
+ * @description Particles animation component
+ * @module Particles
+ * @category Components
+ *
+ * @vue-data {number} particleAmount - Amount of particles
+ */
 
 export default {
   name: 'ZplusParticles',
@@ -44,6 +51,4 @@ export default {
     background: hsl(random(360), 70%, 50%);
   }
 }
-
-
 </style>

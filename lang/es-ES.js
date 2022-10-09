@@ -4,7 +4,8 @@ export default {
   error: {
     title: 'Error',
     wrong: '¡Algo ha ido mal!',
-    backToStart: 'Volver a la página de inicio'
+    backToStart: 'Volver a la página de inicio',
+    noAnimalInfo: 'No hay información del animal para mostrar.',
   },
   actions: {
     refresh: 'Actualizar',
@@ -13,8 +14,8 @@ export default {
     close: 'Cerrar',
     filter: 'Filtrar',
     exit: 'Salir',
-    start: 'Ir a inicio',
-    back: 'Volver'
+    back: 'Volver',
+    start: 'Comenzar',
   },
   commons: {
     id: 'Id',
@@ -30,8 +31,9 @@ export default {
     required: 'Este campo es requerido',
     attention: '¡Atención!'
   },
-  login: {
-    loading: 'Iniciando la aplicación ...',
+  intro: {
+    title: 'Registro de animales',
+    text: 'Esta aplicación es una prueba de código para la empresa Zooplus.'
   },
   animalsList: {
     pageName: 'Listado de animales',
@@ -42,14 +44,20 @@ export default {
     deleteAnimal: 'Eliminar animal',
     deleteAnimalConfirmationText: '¿Confirma que desea eliminar el {animalType} llamado: {animalName}.',
     deleteAnimalType: 'Eliminar {animalType}',
-    deletingAnimal: 'Eliminando animal...'
+    deletingAnimal: 'Eliminando animal...',
+    deletedSuccessfully: 'El animal se ha eliminado correctamente',
   },
   animalDetails: {
     pageName: 'Detalles del animal',
+    editAnimal: 'Editar animal',
+    editingAnimal: 'Editando animal..',
+    editedSuccessfully: 'El animal se ha editado correctamente'
   },
   animalCreation: {
     pageName: 'Creación de un nuevo animal',
-    createAnimal: 'Crear animal'
+    createAnimal: 'Crear animal',
+    creatingAnimal: 'Creando animal...',
+    createdSuccessfully: 'El animal se ha creado correctamente'
   },
   animalsTypes: {
     cat: 'Gato',

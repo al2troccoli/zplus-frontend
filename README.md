@@ -7,7 +7,7 @@ To start the development node server execute the following command:
 $ npm run dev
 ```
 
-### Puerto del servidor de desarrollo
+### Development server port
 The application is configured to start on port 3000 by default.
 
 ### Axios `base_url`

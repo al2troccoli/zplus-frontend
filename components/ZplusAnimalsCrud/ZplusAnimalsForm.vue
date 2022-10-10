@@ -231,6 +231,7 @@ export default {
           this.pageIsLoading = true
           const animal = {...this.animalsFormModel}
           await this.$store.dispatch('editAnimal', animal)
+          await this.retrieveAnimalInfoById(this.selectedAnimalId)
           await this.$store.dispatch('showSuccessAlert', 'animalDetails.editedSuccessfully')
         } catch (error) {
           await this.$store.dispatch('showErrorAlert', 'error.wrong')
@@ -281,6 +282,7 @@ export default {
       } else {
         try {
           this.selectedAnimalId = this.$route.params.id
+          await this.$store.dispatch('visitAnimal', this.selectedAnimalId)
           await this.retrieveAnimalInfoById(this.selectedAnimalId)
         } catch (error) {
           if (error === ZPLUS_ERRORS.NO_ANIMAL_ID) {

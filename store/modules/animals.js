@@ -57,6 +57,19 @@ const actions = {
    */
   async editAnimal({ commit }, animalItem) {
     const editedAnimal = await this.$axios.put('/animals/update-animal', animalItem)
+    commit('UPDATE_EDITED_ANIMAL', editedAnimal.data)
+    return editedAnimal
+  },
+
+  /**
+   * @async
+   * @description Updates the "lastVisit" property into the clicked Animal entity
+   * @name visitAnimal
+   * @param {string} animalId - Visited animal id
+   * @return {object} - The modified animal.
+   */
+  async visitAnimal({ commit }, animalId) {
+    const editedAnimal = await this.$axios.patch(`/animals/visited/${animalId}`)
     commit('UPDATE_EDITED_ANIMAL', editedAnimal)
     return editedAnimal
   },
@@ -96,10 +109,8 @@ const mutations = {
     state.animalsList = list
   },
   UPDATE_EDITED_ANIMAL(state, editedAnimal) {
-    let findAnimal = state.animalsList.find(animal => animal._id === editedAnimal._id)
-    if (findAnimal) {
-      findAnimal = { ...editedAnimal }
-    }
+    const index = state.animalsList.findIndex(animal => animal._id === editedAnimal._id)
+    if (index !== -1) state.animalsList[index] = { ...editedAnimal }
     state.animalsList = [...state.animalsList]
   }
 }

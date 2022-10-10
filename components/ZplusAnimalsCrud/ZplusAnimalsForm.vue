@@ -5,7 +5,7 @@
         <v-form ref="animalsForm">
           <v-container>
             <v-row>
-              <v-col v-if="!creationMode" sm="12">
+              <v-col v-if="!creationMode" cols="12">
                 <!-- Animal ID -->
                 <v-text-field
                   v-model="animalsFormModel._id"
@@ -14,7 +14,7 @@
                   disabled
                 ></v-text-field>
               </v-col>
-              <v-col sm="12" >
+              <v-col cols="12">
                 <!-- Animal Name -->
                 <v-text-field
                   v-model="animalsFormModel.name"
@@ -24,7 +24,7 @@
                   :label="$t('commons.name')"
                 ></v-text-field>
               </v-col>
-              <v-col sm="12" >
+              <v-col cols="12" >
                 <!-- Animal Type -->
                 <v-select
                   v-model="animalsFormModel.type"
@@ -35,7 +35,7 @@
                   :item-text="item => $t(item.label)"
                   outlined/>
               </v-col>
-              <v-col sm="12" >
+              <v-col cols="12" >
                 <!-- Animal Breed -->
                 <v-text-field
                   v-model="animalsFormModel.breed"
@@ -45,7 +45,7 @@
                   :label="$t('commons.breed')"
                 ></v-text-field>
               </v-col>
-              <v-col sm="12" >
+              <v-col cols="12" >
                 <!-- Animal Gender -->
                 <v-select
                   v-model="animalsFormModel.gender"
@@ -56,14 +56,14 @@
                   :item-text="item => $t(item.label)"
                   outlined/>
               </v-col>
-              <v-col sm="12" >
+              <v-col cols="12" >
                 <!-- Vaccinated -->
                 <v-checkbox
                   v-model="animalsFormModel.vaccinated"
                   :label="$t('commons.vaccinated')"
                 ></v-checkbox>
               </v-col>
-              <v-col v-if="!creationMode" sm="12">
+              <v-col v-if="!creationMode" cols="12">
                 <!-- Last Visit -->
                 <v-text-field
                   :value="formatDateWithLocale(animalsFormModel.lastVisit)"
@@ -72,7 +72,7 @@
                   disabled
                 />
               </v-col>
-              <v-col v-if="!creationMode" sm="12">
+              <v-col v-if="!creationMode" cols="12">
                 <!-- Last Update -->
                 <v-text-field
                   :value="formatDateWithLocale(animalsFormModel.lastUpdate)"

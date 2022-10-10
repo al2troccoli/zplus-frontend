@@ -68,7 +68,7 @@ const formatDateByLocale = (dateInfo, locale = 'en-EN') => {
   return date.toLocaleString(locale)
 }
 
-export const animalsMixins = {
+export default {
   methods: {
     translateAnimalType,
     translateAnimalGender,

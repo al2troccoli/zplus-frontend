@@ -157,7 +157,7 @@
  */
 
 import { mapGetters } from 'vuex'
-import { animalsMixins } from './animals-mixins'
+import animalsMixins from './animalsMixins'
 import LoadingOverlay from '~/components/LoadingOverlay/LoadingOverlay'
 
 export default {

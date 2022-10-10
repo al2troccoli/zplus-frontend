@@ -20,6 +20,7 @@
                   v-model="animalsFormModel.name"
                   :rules="[() => !!animalsFormModel.name || $t('commons.required')]"
                   counter
+                  outlined
                   maxlength="50"
                   :label="$t('commons.name')"
                 ></v-text-field>
@@ -41,6 +42,7 @@
                   v-model="animalsFormModel.breed"
                   :rules="[() => !!animalsFormModel.breed || $t('commons.required')]"
                   counter
+                  outlined
                   maxlength="100"
                   :label="$t('commons.breed')"
                 ></v-text-field>
@@ -131,7 +133,7 @@
  * @vue-computed {string} getMainButtonLabel - Returns the translation label of the main button, depending on creationMode
  */
 
-import { animalsMixins } from './animals-mixins'
+import animalsMixins from './animalsMixins'
 import { ZPLUS_ERRORS } from '~/utils/constants'
 import LoadingOverlay from '~/components/LoadingOverlay/LoadingOverlay'
 
@@ -296,4 +298,12 @@ export default {
   }
 }
 </script>
+
+<style lang='scss' scoped>
+
+:deep(.v-select) .v-text-field__details {
+  display: none;
+}
+
+</style>
 
